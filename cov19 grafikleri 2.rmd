@@ -1,0 +1,94 @@
+install.packages ("tidyverse")
+kütüphane (tidyverse)
+kütüphane (ggplot2)
+kütüphane (readr)
+kütüphane (haritalar)
+kütüphane (viridis)
+install.packages ("koronavirüs")
+kütüphane (koronavirüs)
+dünya <- map_data ("dünya")
+görünüm (koronavirüs)
+
+
+mybreaks <- c (1, 20, 100, 1000, 50000)
+
+datacov <- koronavirüs%>% 
+  pivot_wider (names_from = tür, değerler_from = vakalar)
+
+
+
+ggplot () +
+  geom_polygon (veri = dünya, aes (x = uzun, y = lat, grup = grup), dolgu = "gri", alfa = 0.3) +
+  geom_point (data = datacov, aes (x = long, y = lat, size = datacov $ death, color = datacov $ death), inme = F, alpha = 0.7) +
+  scale_size_continuous (ad = "Durumlar", trans = "günlük", aralık = c (1,7), breaks = mybreaks, etiketler = c ("1-19", "20-99", "100-999", " 1.000-49.999 "," 50.000+ ")) +
+  scale_alpha_continuous (ad = "Durumlar", trans = "günlük", aralık = c (0.1, 0.9), sonlar = kırılmalarım) +
+  scale_color_viridis_c (seçenek = "inferno", name = "Durumlar", trans = "günlük", breaks = mybreaks, etiketler = c ("1-19", "20-99", "100-999", "1.000-49.999 "," 50.000+ ")) +
+  theme_void () + 
+  kılavuzlar (color = guide_legend ()) +
+  labs (caption = "Coronavirüsü Vaka Sayıları") +
+  tema(
+    legend.position = "alt",
+    text = element_text (color = "# 22211d"),
+    plot.background = element_rect (fill = "#ffffff", color = NA), 
+    panel.background = element_rect (fill = "#ffffff", color = NA), 
+    legend.background = element_rect (fill = "#ffffff", color = NA)
+  )
+
+
+
+kütüphane (dplyr)
+kütüphane (ggplot2)
+kütüphane (ölçekler)
+kütüphane (readr)
+kütüphane (gganimate)
+kütüphane (reshape2)
+kütüphane (tidyr)
+kütüphane (hayvanat bahçesi)
+
+# Kullanacagımız kütüphaneleri cagırdıktan sonra datayı cekiyoruz.
+
+Coronavirus_Data <- read_csv ("https://covid.ourworldindata.org/data/ecdc/total_cases.csv")
+Coronavirus_Data <- data.frame (Coronavirus_Data)
+
+## Ülkenin kendine ait sutunu var bu genis sutunlar yerine uzun tablo yapınıyoruz.
+Coronavirus_DataMelt <- erime (Coronavirus_Data, id = "tarih")
+
+## Eksik verilere sahip bazý sutunlar var bu Sebep yaklasýk olarak tahmin edebiliriz. 
+Coronavirus_DataMelt $ değer <- zoo :: na.approx (Coronavirus_DataMelt $ değeri)
+
+## Grafik cizdirelim.
+CdataPlot <- Coronavirus_DataMelt%>% 
+  dplyr :: filter (değişken% in% c ('Dünya', 'Çin', 'Birleşik Devletler', 'Türkiye'))
+
+Plot1 <- ggplot (veri = CdataPlot, aes (x = tarih, y = değer, renk = değişken))
+Plot1 <- Plot1 + geom_point (show.legend = FALSE)
+Plot1 <- Plot1 + geom_line (show.legend = FALSE, aes (x = tarih, y = değer))
+Plot1 <- Plot1 + tema_bw ()
+Plot1 <- Plot1 + transition_reveal (tarih)
+Plot1 <- Plot1 + scale_color_brewer (palet = "Dark2")
+
+## y ekseninde büyük sayıların dogru sekilde bicimlendirdigimizi görmemizi saglar
+Plot1 <- Plot1 + scale_y_continuous (breaks = pretty_breaks (), etiketler = virgül)
+
+Plot1 <- Plot1 + facet_wrap (~ değişken)
+Plot1 <- Plot1 + labs (title = "Koronavirüs Vakaları")
+Plot1 <- Plot1 + labs (subtitle = '{nframes}' in {frame} çerçevesi)
+Plot1 <- Plot1 + labs (x = "Tarih", y = 'Vakalar')
+
+Arsa1
+seçenekler (scipen = 100000000)
+breaks_vec = c (1,10,100,10000,100000,1000000,10000000)
+
+Plot1 <- ggplot (veri = CdataPlot, aes (x = tarih, y = değer, renk = değişken))
+Plot1 <- Plot1 + geom_point (show.legend = FALSE)
+Plot1 <- Plot1 + geom_line (show.legend = DOĞRU, aes (x = tarih, y = değer))
+Plot1 <- Plot1 + tema_bw ()
+Plot1 <- Plot1 + transition_reveal (tarih)
+Plot1 <- Plot1 + scale_color_brewer (palet = "Dark2")
+Plot1 <- Plot1 + scale_y_continuous (trans = log_trans (), breaks = breaks_vec)
+
+Plot1 <- Plot1 + labs (title = "Koronavirüs Vakaları")
+Plot1 <- Plot1 + labs (subtitle = '{nframes}' in {frame} çerçevesi)
+Plot1 <- Plot1 + labs (x = "Tarih", y = 'Vakalar')
+
+Arsa1
